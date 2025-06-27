@@ -2,52 +2,137 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Text Reader</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reader Exercise</title>
   <style>
-    body {
-      font-family: sans-serif;
-      background: #111;
-      color: #eee;
-      padding: 40px;
-      line-height: 1.6;
+    :root {
+      --bg: #121212;
+      --text: #f0f0f0;
+      --accent: #00ff80;
+      --start: #00cc66;
+      --stop: #ff4444;
+      --highlight: #00ff80;
     }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', sans-serif;
+      padding: 5vw;
+      margin: 0;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1em;
+      font-weight: 500;
+    }
+
     textarea {
       width: 100%;
-      height: 150px;
-      font-size: 16px;
-      padding: 10px;
-      margin-bottom: 20px;
+      height: 30vh;
+      font-size: 1rem;
+      padding: 1em;
+      border: none;
+      border-radius: 12px;
+      background: #1e1e1e;
+      color: var(--text);
+      box-sizing: border-box;
+      resize: vertical;
+      margin-bottom: 1em;
     }
+
     .controls {
-      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5em;
     }
+
+    label {
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+
+    input[type="number"] {
+      padding: 0.5em;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      width: 5em;
+      background: #1e1e1e;
+      color: var(--text);
+    }
+
+    button {
+      padding: 0.6em 1.4em;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .start-btn {
+      background: var(--start);
+    }
+
+    .start-btn:hover {
+      background: #00a652;
+    }
+
+    .stop-btn {
+      background: var(--stop);
+    }
+
+    .stop-btn:hover {
+      background: #cc0000;
+    }
+
     #display {
-      font-size: 24px;
-      white-space: pre-wrap;
+      font-size: 1.4rem;
+      line-height: 1.6;
+      margin-top: 1.2em;
       word-wrap: break-word;
+      white-space: pre-wrap;
     }
+
     .highlight {
-      background: #00ff80;
+      background: var(--highlight);
       color: #000;
       border-radius: 4px;
       padding: 2px 4px;
     }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      margin-right: 10px;
+
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 1.4rem;
+      }
+
+      #display {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Text Reader</h1>
+  <h2>📖 კითხვაში სავარჯიშო</h2>
   
-  <textarea id="inputText" placeholder="Paste your text here...">This is a test of a reader. It will highlight one word at a time according to the speed you choose. Have fun reading!</textarea>
+  <textarea id="inputText" placeholder="Paste your text here...">უკვე მობილურ-მეგობრული კითხვაში სავარჯიშო საიტი! მუშაობს ნებისმიერ დევაისზე.</textarea>
 
   <div class="controls">
-    Speed (WPM): <input type="number" id="speedInput" value="200" min="50" max="1000">
-    <button onclick="startReading()">Start Reading</button>
-    <button onclick="stopReading()">Stop</button>
+    <label>
+      სიჩქარე:
+      <input type="number" id="speedInput" value="200" min="50" max="1000"> WPM
+    </label>
+    <button class="start-btn" onclick="startReading()">დაწყება</button>
+    <button class="stop-btn" onclick="stopReading()">დასრულება</button>
   </div>
 
   <div id="display"></div>
@@ -64,13 +149,12 @@
       const display = document.getElementById("display");
       let index = 0;
 
-      // Clear any previous content or intervals
-      stopReading();
+      stopReading(); // Clear previous session
 
       intervalId = setInterval(() => {
-        const highlighted = words.map((word, i) => {
-          return i === index ? `<span class="highlight">${word}</span>` : word;
-        });
+        const highlighted = words.map((word, i) =>
+          i === index ? `<span class="highlight">${word}</span>` : word
+        );
         display.innerHTML = highlighted.join(" ");
         index++;
 
@@ -78,7 +162,7 @@
           clearInterval(intervalId);
           intervalId = null;
         }
-      }, 60000 / speed); // Convert WPM to interval in ms
+      }, 60000 / speed);
     }
 
     function stopReading() {
