@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Karaoke Text Reader</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #111;
+      color: #eee;
+      padding: 40px;
+      line-height: 1.6;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      font-size: 16px;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    .controls {
+      margin-bottom: 20px;
+    }
+    #display {
+      font-size: 24px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .highlight {
+      background: #00ff80;
+      color: #000;
+      border-radius: 4px;
+      padding: 2px 4px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Karaoke Text Reader</h1>
+  
+  <textarea id="inputText" placeholder="Paste your text here...">This is a test of the karaoke-style reader. It will highlight one word at a time according to the speed you choose. Have fun reading!</textarea>
+
+  <div class="controls">
+    Speed (WPM): <input type="number" id="speedInput" value="200" min="50" max="1000">
+    <button onclick="startReading()">Start Reading</button>
+    <button onclick="stopReading()">Stop</button>
+  </div>
+
+  <div id="display"></div>
+
+  <script>
+    let intervalId = null;
+
+    function startReading() {
+      const text = document.getElementById("inputText").value.trim();
+      const speed = parseInt(document.getElementById("speedInput").value);
+      if (!text || isNaN(speed)) return;
+
+      const words = text.split(/\s+/);
+      const display = document.getElementById("display");
+      let index = 0;
+
+      // Clear any previous content or intervals
+      stopReading();
+
+      intervalId = setInterval(() => {
+        const highlighted = words.map((word, i) => {
+          return i === index ? `<span class="highlight">${word}</span>` : word;
+        });
+        display.innerHTML = highlighted.join(" ");
+        index++;
+
+        if (index >= words.length) {
+          clearInterval(intervalId);
+          intervalId = null;
+        }
+      }, 60000 / speed); // Convert WPM to interval in ms
+    }
+
+    function stopReading() {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+    }
+  </script>
+</body>
+</html>
