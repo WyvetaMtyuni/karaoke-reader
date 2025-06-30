@@ -14,6 +14,22 @@
       --highlight: #00ff80;
     }
 
+        body.light {
+      --bg: #f4f4f4;
+      --text: #121212;
+      --accent: #006633;
+      --start: #00cc66;
+      --stop: #ff4444;
+      --highlight: #99ffcc;
+    }
+
+    body.light textarea,
+    body.light input[type="number"] {
+      background: #fff;
+        color: var(--text);
+    }
+
+
     body {
       background: var(--bg);
       color: var(--text);
@@ -128,9 +144,19 @@
 
   <div class="controls">
     <label>
+      შრიფტის ზომა:
+      <input type="range" id="fontSize" min="14" max="30" value="18" oninput="changeFontSize(this.value)">
+    </label>
+    <label>
       სიჩქარე:
       <input type="number" id="speedInput" value="200" min="50" max="1000"> WPM
     </label>
+    <label>
+      ატვირთე ფაილი:
+      <input type="file" id="fileInput" accept=".txt" onchange="loadFileText(event)">
+    </label>
+
+    <button onclick="toggleTheme()">🌗 თემა</button>
     <button class="start-btn" onclick="startReading()">დაწყება</button>
     <button class="stop-btn" onclick="stopReading()">დასრულება</button>
   </div>
@@ -138,6 +164,8 @@
   <div id="display"></div>
 
   <script>
+    
+
     let intervalId = null;
 
     function startReading() {
@@ -171,6 +199,27 @@
         intervalId = null;
       }
     }
+
+    function toggleTheme() {
+    document.body.classList.toggle("light");
+  }
+
+    function changeFontSize(size) {
+   document.getElementById("inputText").style.fontSize = (parseInt(document.getElementById("fontSize").value) - 2) + "px";
+  }
+
+    function loadFileText(event) {
+    const file = event.target.files[0];
+      if (!file) return;
+
+       const reader = new FileReader();
+        reader.onload = function(e) {
+        document.getElementById("inputText").value = e.target.result;
+      };    
+        reader.readAsText(file);
+      }
+
+
   </script>
 </body>
 </html>
