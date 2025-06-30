@@ -135,6 +135,36 @@
         font-size: 1.2rem;
       }
     }
+
+    .file-upload {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  padding: 0.6em 1.4em;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background: #444;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.file-upload:hover {
+  background: #666;
+}
+
+.file-upload input[type="file"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+}
+
   </style>
 </head>
 <body>
@@ -151,10 +181,11 @@
       სიჩქარე:
       <input type="number" id="speedInput" value="200" min="50" max="1000"> WPM
     </label>
-    <label>
-      ატვირთე ფაილი:
-      <input type="file" id="fileInput" accept=".txt" onchange="loadFileText(event)">
+    <label class="file-upload">
+      ატვირთე ფაილი
+      <input type="file" accept=".txt,.doc,.docx" onchange="loadFileText(event)">
     </label>
+
 
     <button onclick="toggleTheme()">🌗 თემა</button>
     <button class="start-btn" onclick="startReading()">დაწყება</button>
