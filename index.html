@@ -165,15 +165,34 @@
   width: 100%;
 }
 
+    .theme-btn {
+  background-color: #222; /* Darker background */
+  color: #eee;            /* Lighter text */
+  padding: 0.6em 1.4em;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.theme-btn:hover {
+  background-color: #444; /* Slightly lighter on hover */
+}
+
+
     
 
   </style>
+  
   <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
+  
 </head>
 <body>
   <h2>📖 კითხვაში სავარჯიშო</h2>
   
-  <textarea id="inputText" placeholder="Paste your text here...">უკვე მობილურ-მეგობრული კითხვაში სავარჯიშო საიტი! მუშაობს ნებისმიერ დევაისზე.</textarea>
+  <textarea id="inputText" placeholder="Paste your text here..."> მუშაობს ნებისმიერ დევაისზე.</textarea>
 
   <div class="controls">
     <label>
@@ -190,7 +209,7 @@
     </label>
 
 
-    <button onclick="toggleTheme()">🌗 განათება</button>
+    <button class="theme-btn" onclick="toggleTheme()">🌗 განათება</button>
     <button class="start-btn" onclick="startReading()">დაწყება</button>
     <button class="stop-btn" onclick="stopReading()">დასრულება</button>
   </div>
