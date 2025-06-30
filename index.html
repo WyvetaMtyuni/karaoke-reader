@@ -195,10 +195,16 @@ footer p {
 }
 
 footer .sponsor img {
+  width: 70px;           /* smaller width */
+  height: 70px;          /* smaller height */
+  border-radius: 50%;    /* makes it perfectly round */
+  object-fit: cover;     /* keeps image proportions and fills circle */
   margin-top: 0.5em;
-  filter: brightness(0) invert(1); /* if dark mode, make logo white-ish */
+  filter: brightness(0) invert(1);
   transition: filter 0.3s ease;
 }
+
+
 
 footer .sponsor:hover img {
   filter: brightness(1) invert(0); /* normal colors on hover */
