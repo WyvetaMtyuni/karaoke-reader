@@ -165,6 +165,8 @@
   width: 100%;
 }
 
+    <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
+
   </style>
 </head>
 <body>
@@ -242,15 +244,37 @@
 
 
     function loadFileText(event) {
-    const file = event.target.files[0];
-      if (!file) return;
+  const file = event.target.files[0];
+  if (!file) return;
 
-       const reader = new FileReader();
-        reader.onload = function(e) {
-        document.getElementById("inputText").value = e.target.result;
-      };    
-        reader.readAsText(file);
-      }
+  const inputText = document.getElementById("inputText");
+
+  const extension = file.name.split(".").pop().toLowerCase();
+
+  if (extension === "txt") {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      inputText.value = e.target.result;
+    };
+    reader.readAsText(file);
+  } else if (extension === "docx") {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      mammoth
+        .extractRawText({ arrayBuffer: e.target.result })
+        .then(function (result) {
+          inputText.value = result.value;
+        })
+        .catch(function (err) {
+          alert("ფაილის წაკითხვა ვერ მოხერხდა: " + err.message);
+        });
+    };
+    reader.readAsArrayBuffer(file);
+  } else {
+    alert("მხოლოდ .txt ან .docx ფაილებია მხარდაჭერილი.");
+  }
+}
+
 
 
   </script>
