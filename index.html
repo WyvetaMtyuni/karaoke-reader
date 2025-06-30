@@ -201,12 +201,14 @@
     }
 
     function toggleTheme() {
-    document.body.classList.toggle("light");
+      document.body.classList.toggle("light");
   }
 
     function changeFontSize(size) {
-   document.getElementById("inputText").style.fontSize = (parseInt(document.getElementById("fontSize").value) - 2) + "px";
+      document.getElementById("inputText").style.fontSize = (parseInt(size) - 2) + "px";
+      document.getElementById("display").style.fontSize = size + "px";
   }
+
 
     function loadFileText(event) {
     const file = event.target.files[0];
