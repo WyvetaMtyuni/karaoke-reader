@@ -224,7 +224,21 @@ footer .sponsor-text {
   color: var(--text);
 }
 
-    
+    html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  flex: 1; /* This pushes footer to bottom when content is short */
+}
+
 
   </style>
   
@@ -232,6 +246,7 @@ footer .sponsor-text {
   
 </head>
 <body>
+ <div class="wrapper">
   <h2>📖 კითხვაში სავარჯიშო</h2>
   
   <textarea id="inputText" placeholder="Paste your text here..."> მუშაობს ნებისმიერ დევაისზე.</textarea>
@@ -341,6 +356,10 @@ footer .sponsor-text {
 
   </script>
 
+
+ </div>
+
+  
 <footer>
   <p class="sponsor-text" style="margin-top: 0.5em;">
     Fuelled by 
