@@ -200,8 +200,6 @@ footer .sponsor img {
   border-radius: 50%;    /* makes it perfectly round */
   object-fit: cover;     /* keeps image proportions and fills circle */
   margin-top: 0.5em;
-  filter: brightness(0) invert(1);
-  transition: filter 0.3s ease;
 }
 
 
@@ -210,6 +208,21 @@ footer .sponsor:hover img {
   filter: brightness(1) invert(0); /* normal colors on hover */
 }
 
+footer .sponsor {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none; /* no underline */
+  color: var(--text);
+  margin-top: 0.5em;
+}
+
+footer .sponsor-text {
+  margin-top: 0.3em;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text);
+}
 
     
 
@@ -330,9 +343,12 @@ footer .sponsor:hover img {
 
 <footer>
   <p>© 2025 WyvetaMtyuni. All rights reserved.</p>
-  <a href="https://www.instagram.com/barnafel__?utm_source=ig_web_button_share_sheet&igsh=Z3RodHV1MXhpZW1t" target="_blank" rel="noopener noreferrer" class="sponsor">
-    <img src="barnafel.png" alt="Barnafel" />
-  </a>
+  <a href="https://www.instagram.com/barnafel__?utm_source=ig_web_button_share_sheet&igsh=Z3RodHV1MXhpZW1t" 
+   target="_blank" rel="noopener noreferrer" class="sponsor">
+  <img src="barnafel.png" alt="Barnafel" />
+  <div class="sponsor-text">Barnafel</div>
+</a>
+
 </footer>
 
 
