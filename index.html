@@ -182,6 +182,29 @@
 }
 
 
+footer {
+  text-align: center;
+  padding: 1em 0;
+  border-top: 1px solid #333;
+  margin-top: 2em;
+}
+
+footer p {
+  color: var(--text);
+  margin: 0.5em 0;
+}
+
+footer .sponsor img {
+  margin-top: 0.5em;
+  filter: brightness(0) invert(1); /* if dark mode, make logo white-ish */
+  transition: filter 0.3s ease;
+}
+
+footer .sponsor:hover img {
+  filter: brightness(1) invert(0); /* normal colors on hover */
+}
+
+
     
 
   </style>
