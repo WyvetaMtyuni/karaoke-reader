@@ -24,7 +24,6 @@
       --accent: #006633;
       --start: #00cc66;
       --stop: #ff4444;
-      --highlight: #99ffcc;
     }
 
     body.light textarea,
@@ -305,10 +304,15 @@ body {
       stopReading(); // Clear previous session
 
       intervalId = setInterval(() => {
-        const highlighted = words.map((word, i) =>
-          i === index ? `<span class="highlight">${word}</span>` : word
-        );
-        display.innerHTML = highlighted.join(" ");
+        const original = text.split(/\s+/);
+const highlighted = original.map((word, i) => {
+  if (i === index) {
+    return `<span class="highlight">${word}</span>`;
+  }
+  return word;
+});
+display.innerHTML = highlighted.join(" ").replace(/\n/g, "<br>");
+
         index++;
 
         if (index >= words.length) {
